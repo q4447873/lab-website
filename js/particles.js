@@ -309,8 +309,12 @@ class TiltEffect {
  * Initialize all effects
  */
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize particle system
-    window.particleSystem = new ParticleSystem();
+    const page = document.body.getAttribute('data-page') || 'index';
+
+    // 仅在封面首页启用粒子背景，避免其他栏目页顶部出现空白区域
+    if (page === 'index') {
+        window.particleSystem = new ParticleSystem();
+    }
 
     // Initialize scroll animations
     window.scrollAnimation = new ScrollAnimation();
