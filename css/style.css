@@ -1021,6 +1021,7 @@ footer p {
     text-align: center;
     position: relative;
     overflow: hidden;
+    margin-top: 70px;
 }
 
 .page-header::before {
