@@ -328,9 +328,9 @@ const translations = {
         'wei_wei_bio': { 'zh': '武汉大学教授，美国哈佛大学博士。主要研究方向为神经发育与表观遗传调控，在Cell Stem Cell等期刊发表多篇论文。擅长干细胞与神经分化研究。', 'en': 'Professor at Wuhan University, PhD from Harvard. Research focuses on neural development and epigenetic regulation, published multiple papers in Cell Stem Cell. Expert in stem cell and neural differentiation.' },
         // Postdoc translations
         'postdoc_title': { 'zh': '博士后', 'en': 'Postdoctoral Researcher' },
-        'liu_chang_name': { 'zh': '刘畅 博士', 'en': 'Dr. Chang Liu' },
+        'liu_chang_name': { 'zh': '蒋佳志 博士', 'en': 'Dr. Jiazhi Jiang' },
         'liu_chang_bio': { 'zh': '研究阿尔茨海默病中的表观遗传异常，擅长动物行为学实验和分子生物学技术。', 'en': 'Research on epigenetic abnormalities in Alzheimer\'s disease, expert in animal behavior and molecular biology.' },
-        'chen_xiaoxiao_name': { 'zh': '陈晓晓 博士', 'en': 'Dr. Xiaoxiao Chen' },
+        'chen_xiaoxiao_name': { 'zh': '陈同宇 博士', 'en': 'Dr. Tongyu Chen' },
         'chen_xiaoxiao_bio': { 'zh': '研究方向为非编码RNA在神经系统中功能，擅长RNA-seq和生物信息学分析。', 'en': 'Research on non-coding RNA function in nervous system, expert in RNA-seq and bioinformatics.' },
         // Graduate student translations
         'zhao_wei_name': { 'zh': '赵伟 博士研究生', 'en': 'Wei Zhao (PhD Student)' },
@@ -347,7 +347,7 @@ const translations = {
         'wu_yuqing_bio': { 'zh': '研究DNA甲基化在神经损伤修复中的作用。', 'en': 'Research on DNA methylation in nerve injury repair.' },
         // Research assistant translations
         'ra_title': { 'zh': '科研助理', 'en': 'Research Assistant' },
-        'zheng_hao_name': { 'zh': '郑浩 科研助理', 'en': 'Hao Zheng' },
+        'zheng_hao_name': { 'zh': '王旭萌 科研助理', 'en': 'Xumeng Wang' },
         'zheng_hao_bio': { 'zh': '负责实验室日常管理和技术平台维护。', 'en': 'Responsible for lab daily management and technical platform maintenance.' }
     },
     // Contact page

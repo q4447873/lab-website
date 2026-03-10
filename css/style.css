@@ -611,6 +611,7 @@ nav .container {
     animation-delay: 0.15s;
     opacity: 0;
     line-height: 1.8;
+    color: var(--white);
 }
 
 .hero .btn {

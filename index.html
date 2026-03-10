@@ -43,7 +43,7 @@
                     </button>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="index.html" class="active" data-i18n-nav="home">首页</a></li>
+                    <li><a href="index.html#main-wrapper" class="active" data-i18n-nav="home">首页</a></li>
                     <li><a href="about.html" data-i18n-nav="about">关于我们</a></li>
                     <li><a href="research.html" data-i18n-nav="research">研究方向</a></li>
                     <li><a href="team.html" data-i18n-nav="team">团队成员</a></li>
@@ -141,7 +141,20 @@
         // Initially hide header
         document.addEventListener('DOMContentLoaded', function() {
             const header = document.querySelector('header');
-            if (header) {
+            const landing = document.querySelector('.landing-page');
+
+            // 如果通过 #main-wrapper 进入首页，则跳过封面，直接显示正文
+            if (window.location.hash === '#main-wrapper') {
+                if (landing) {
+                    landing.style.display = 'none';
+                    landing.style.visibility = 'hidden';
+                    landing.style.pointerEvents = 'none';
+                    landing.style.opacity = '0';
+                }
+                if (header) {
+                    header.classList.remove('hidden');
+                }
+            } else if (header) {
                 header.classList.add('hidden');
             }
         });
@@ -165,12 +178,12 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Auto hide landing after 5 seconds
+        // Auto hide landing after 5 seconds（仅在未直接跳过封面时）
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 const landing = document.querySelector('.landing-page');
                 const header = document.querySelector('header');
-                if (landing && landing.style.display !== 'none') {
+                if (landing && landing.style.display !== 'none' && window.location.hash !== '#main-wrapper') {
                     landing.style.transition = 'opacity 0.5s ease';
                     landing.style.opacity = '0';
                     setTimeout(function() {
