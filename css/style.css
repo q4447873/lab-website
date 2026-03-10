@@ -598,6 +598,7 @@ nav .container {
     font-weight: 700;
     font-family: var(--font-display);
     letter-spacing: 2px;
+    color: #ffffff;
 }
 
 .hero p {
@@ -1044,12 +1045,14 @@ footer p {
     font-weight: 700;
     font-family: var(--font-display);
     letter-spacing: 3px;
+    color: #ffffff;
 }
 
 .page-header p {
     font-size: 1.15rem;
     opacity: 0.9;
     position: relative;
+    color: #ffffff;
 }
 
 /* ============================================
