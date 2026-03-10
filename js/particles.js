@@ -309,7 +309,7 @@ class TiltEffect {
  * Initialize all effects
  */
 document.addEventListener('DOMContentLoaded', function() {
-    const page = document.body.getAttribute('data-page') || 'index';
+    const page = document.body.getAttribute('data-page');
 
     // 仅在封面首页启用粒子背景，避免其他栏目页顶部出现空白区域
     if (page === 'index') {
