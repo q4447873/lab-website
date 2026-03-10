@@ -24,6 +24,7 @@ class ParticleSystem {
         // Create canvas
         this.canvas = document.createElement('canvas');
         this.canvas.id = 'particles-canvas';
+        this.canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;pointer-events:none;';
         document.body.insertBefore(this.canvas, document.body.firstChild);
 
         this.ctx = this.canvas.getContext('2d');
@@ -75,7 +76,7 @@ class ParticleSystem {
                 vy: (Math.random() - 0.5) * 1.5,
                 size: Math.random() * 3 + 1,
                 color: this.getRandomColor(),
-                alpha: Math.random() * 0.5 + 0.2,
+                alpha: Math.random() * 0.25 + 0.25, // 透明度0.25-0.5
                 z: Math.random() * 2 - 1, // 3D depth
                 angle: Math.random() * Math.PI * 2,
                 angularSpeed: (Math.random() - 0.5) * 0.02,
@@ -311,10 +312,8 @@ class TiltEffect {
 document.addEventListener('DOMContentLoaded', function() {
     const page = document.body.getAttribute('data-page');
 
-    // 仅在封面首页启用粒子背景，避免其他栏目页顶部出现空白区域
-    if (page === 'index') {
-        window.particleSystem = new ParticleSystem();
-    }
+    // 所有页面都启用粒子背景效果
+    window.particleSystem = new ParticleSystem();
 
     // Initialize scroll animations
     window.scrollAnimation = new ScrollAnimation();
