@@ -603,7 +603,6 @@ nav .container {
 .hero p {
     font-size: clamp(1.05rem, 2.5vw, 1.35rem);
     margin-bottom: 2.5rem;
-    opacity: 0.92;
     max-width: 750px;
     margin-left: auto;
     margin-right: auto;
