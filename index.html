@@ -162,6 +162,7 @@
         function scrollToMain() {
             const landing = document.querySelector('.landing-page');
             const header = document.querySelector('header');
+            const mainWrapper = document.getElementById('main-wrapper');
             if (landing) {
                 landing.style.transition = 'opacity 0.5s ease';
                 landing.style.opacity = '0';
@@ -175,7 +176,12 @@
             if (header) {
                 header.classList.remove('hidden');
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Scroll to main content area, accounting for fixed header
+            if (mainWrapper) {
+                const headerHeight = header ? header.offsetHeight : 70;
+                const targetPosition = mainWrapper.offsetTop - headerHeight;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            }
         }
 
         // Auto hide landing after 5 seconds（仅在未直接跳过封面时）
