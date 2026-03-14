@@ -341,15 +341,18 @@ body.dark-mode @keyframes logoGlow {
 /* 标题样式 - 更精致的排版 */
 .landing-title {
     font-size: clamp(2.2rem, 5vw, 3.6rem);
-    color: #ffffff;
+    color: #1a1a2e;
     margin-bottom: 0.8rem;
     font-weight: 700;
     letter-spacing: 4px;
-    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.4);
     font-family: var(--font-display);
     animation: titleReveal 1s ease-out forwards;
     opacity: 0;
     transform: translateY(20px);
+}
+
+body.dark-mode .landing-title {
+    color: #F0F0F5;
 }
 
 @keyframes titleReveal {
@@ -361,7 +364,7 @@ body.dark-mode @keyframes logoGlow {
 
 .landing-subtitle {
     font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-    color: rgba(255, 255, 255, 0.8);
+    color: #3d3d5c;
     margin-bottom: 0.8rem;
     font-weight: 400;
     letter-spacing: 2px;
@@ -371,9 +374,13 @@ body.dark-mode @keyframes logoGlow {
     transform: translateY(20px);
 }
 
+body.dark-mode .landing-subtitle {
+    color: rgba(240, 240, 245, 0.7);
+}
+
 .landing-institution {
     font-size: clamp(1.2rem, 2.8vw, 1.65rem);
-    color: var(--secondary-light);
+    color: #1a1a2e;
     margin-bottom: 2rem;
     font-weight: 500;
     letter-spacing: 1px;
@@ -383,13 +390,21 @@ body.dark-mode @keyframes logoGlow {
     transform: translateY(20px);
 }
 
+body.dark-mode .landing-institution {
+    color: #F0F0F5;
+}
+
 .landing-institution span {
     font-size: 0.6em;
-    color: rgba(255, 255, 255, 0.65);
+    color: #6b6b8a;
     font-weight: 400;
     display: block;
     margin-top: 0.5rem;
     letter-spacing: 0.5px;
+}
+
+body.dark-mode .landing-institution span {
+    color: rgba(240, 240, 245, 0.6);
 }
 
 /* 滚动提示 - 更优雅的动画 */
@@ -400,16 +415,24 @@ body.dark-mode @keyframes logoGlow {
     transform: translateX(-50%);
     cursor: pointer;
     text-align: center;
-    color: rgba(255, 255, 255, 0.75);
+    color: #3d3d5c;
     font-size: 0.9rem;
     letter-spacing: 1px;
     transition: all var(--transition-base);
     animation: hintBounce 2s ease-in-out infinite;
 }
 
+body.dark-mode .landing-scroll-hint {
+    color: rgba(240, 240, 245, 0.7);
+}
+
 .landing-scroll-hint:hover {
-    color: #ffffff;
+    color: #1a1a2e;
     transform: translateX(-50%) translateY(3px);
+}
+
+body.dark-mode .landing-scroll-hint:hover {
+    color: #F0F0F5;
 }
 
 @keyframes hintBounce {
@@ -425,11 +448,16 @@ body.dark-mode @keyframes logoGlow {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border-right: 2px solid rgba(255, 255, 255, 0.6);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+    border-right: 2px solid rgba(0, 0, 0, 0.4);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.4);
     transform: rotate(45deg);
     margin: 0 -2px;
     animation: scrollArrowAnim 1.5s infinite;
+}
+
+body.dark-mode .scroll-arrow span {
+    border-right: 2px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 .scroll-arrow span:nth-child(2) {
