@@ -26,6 +26,17 @@
     --border-subtle: rgba(255,255,255,0.06);
     --gradient-red: linear-gradient(135deg, #FF3B30, #FF6B5E);
 
+    /* 日间模式默认变量 - Light Theme */
+    --text-primary: #1a1a2e;
+    --text-secondary: #3d3d5c;
+    --text-tertiary: #6b6b8a;
+    --text-muted: #9999b3;
+    --bg-deep: #0a0a14;
+    --bg-primary: #f8f9fb;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f0f2f5;
+    --bg-elevated: #ffffff;
+
     /* 保留原有变量用于兼容 */
     --primary-deep: #0f2d4a;
     --primary: #1a4a7a;
@@ -40,19 +51,6 @@
     --accent-bio: #27ae60;
     --accent-dna: #8e44ad;
     --accent-neuro: #e67e22;
-
-    /* 文本色彩 - 多层次灰度 */
-    --text-primary: #1a1a2e;
-    --text-secondary: #3d3d5c;
-    --text-tertiary: #6b6b8a;
-    --text-muted: #9999b3;
-
-    /* 背景层次 */
-    --bg-deep: #0a0a14;
-    --bg-primary: #f8f9fb;
-    --bg-secondary: #ffffff;
-    --bg-tertiary: #f0f2f5;
-    --bg-elevated: #ffffff;
 
     /* 玻璃拟态效果 */
     --glass-bg: rgba(255, 255, 255, 0.85);
@@ -481,6 +479,10 @@ nav .container {
 }
 
 .logo:hover {
+    color: var(--primary);
+}
+
+body.dark-mode .logo:hover {
     color: var(--red-glow);
     text-shadow: 0 0 12px rgba(255, 107, 94, 0.5);
 }
@@ -494,7 +496,7 @@ nav .container {
 
 .nav-links a {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--text-secondary);
     font-weight: 600;
     font-size: 0.95rem;
     letter-spacing: 0.5px;
@@ -510,11 +512,23 @@ nav .container {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--gradient-red);
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
     transition: width 0.3s;
 }
 
 .nav-links a:hover {
+    color: var(--primary);
+}
+
+body.dark-mode .nav-links a {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+body.dark-mode .nav-links a::after {
+    background: var(--gradient-red);
+}
+
+body.dark-mode .nav-links a:hover {
     color: #fff;
     text-shadow: 0 0 12px rgba(255, 107, 94, 0.5);
 }
@@ -524,6 +538,10 @@ nav .container {
 }
 
 .nav-links a.active {
+    color: var(--primary);
+}
+
+body.dark-mode .nav-links a.active {
     color: var(--red-glow);
 }
 
@@ -853,19 +871,19 @@ nav .container {
     gap: 1.5rem;
 }
 
-/* 卡片 - Qclaw Style Glass Cards */
+/* 卡片 - Light Mode Default */
 .feature-card {
     padding: 28px 24px;
     position: relative;
     min-height: 200px;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--bg-elevated);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 18px;
     transition: all 0.5s;
     overflow: hidden;
-    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
 }
 
 /* 卡片悬浮光效 */
@@ -874,7 +892,7 @@ nav .container {
     position: absolute;
     inset: 0;
     border-radius: 18px;
-    background: linear-gradient(135deg, rgba(255,59,48,0.08), transparent 60%);
+    background: linear-gradient(135deg, rgba(74, 144, 217, 0.08), transparent 60%);
     opacity: 0;
     transition: opacity 0.5s;
 }
@@ -885,15 +903,35 @@ nav .container {
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--red-glow), transparent);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
     opacity: 0;
     transition: opacity 0.4s;
 }
 
 .feature-card:hover {
-    border-color: rgba(255, 59, 48, 0.25);
+    border-color: rgba(74, 144, 217, 0.3);
     transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Dark Mode - Qclaw Style Glass Cards */
+body.dark-mode .feature-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+}
+
+body.dark-mode .feature-card::before {
+    background: linear-gradient(135deg, rgba(255,59,48,0.08), transparent 60%);
+}
+
+body.dark-mode .feature-card::after {
+    background: linear-gradient(90deg, transparent, var(--red-glow), transparent);
+}
+
+body.dark-mode .feature-card:hover {
+    border-color: rgba(255, 59, 48, 0.25);
     box-shadow: 0 20px 60px rgba(255, 59, 48, 0.08), 0 0 30px rgba(255, 59, 48, 0.04);
 }
 
@@ -906,7 +944,7 @@ nav .container {
 }
 
 .feature-card h3 {
-    color: #fff;
+    color: var(--text-primary);
     margin-bottom: 6px;
     font-size: 18px;
     font-weight: 700;
@@ -922,6 +960,10 @@ nav .container {
     z-index: 1;
 }
 
+body.dark-mode .feature-card h3 {
+    color: #fff;
+}
+
 /* ============================================
    News Section - Qclaw Style
    ============================================ */
@@ -934,12 +976,16 @@ nav .container {
 .news h2 {
     text-align: center;
     margin-bottom: 3.5rem;
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: clamp(26px, 4vw, 40px);
     font-weight: 900;
     position: relative;
     font-family: var(--font-display);
     letter-spacing: 2px;
+}
+
+body.dark-mode .news h2 {
+    color: #ffffff;
 }
 
 .news-grid {
@@ -948,16 +994,17 @@ nav .container {
     gap: 1.5rem;
 }
 
-/* 新闻卡片 - Qclaw Glass Style */
+/* 新闻卡片 - Light Mode Default */
 .news-item {
     padding: 28px 24px;
     transition: all 0.5s;
     position: relative;
     min-height: 110px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--bg-elevated);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 18px;
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .news-item::before {
@@ -965,7 +1012,7 @@ nav .container {
     position: absolute;
     inset: 0;
     border-radius: 18px;
-    background: linear-gradient(135deg, rgba(255,59,48,0.08), transparent 60%);
+    background: linear-gradient(135deg, rgba(74, 144, 217, 0.08), transparent 60%);
     opacity: 0;
     transition: opacity 0.5s;
 }
@@ -976,16 +1023,16 @@ nav .container {
     top: 0;
     left: 0;
     right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--red-glow), transparent);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
     opacity: 0;
     transition: opacity 0.4s;
 }
 
 .news-item:hover {
-    border-color: rgba(255, 59, 48, 0.25);
+    border-color: rgba(74, 144, 217, 0.3);
     transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(255, 59, 48, 0.08), 0 0 30px rgba(255, 59, 48, 0.04);
+    box-shadow: var(--shadow-xl);
 }
 
 .news-item:hover::before {
@@ -996,8 +1043,27 @@ nav .container {
     opacity: 1;
 }
 
+/* Dark Mode - Qclaw Glass Style */
+body.dark-mode .news-item {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+body.dark-mode .news-item::before {
+    background: linear-gradient(135deg, rgba(255,59,48,0.08), transparent 60%);
+}
+
+body.dark-mode .news-item::after {
+    background: linear-gradient(90deg, transparent, var(--red-glow), transparent);
+}
+
+body.dark-mode .news-item:hover {
+    border-color: rgba(255, 59, 48, 0.25);
+    box-shadow: 0 20px 60px rgba(255, 59, 48, 0.08), 0 0 30px rgba(255, 59, 48, 0.04);
+}
+
 .news-item .date {
-    color: var(--red-glow);
+    color: var(--primary);
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 1px;
@@ -1006,8 +1072,12 @@ nav .container {
     font-family: var(--font-mono);
 }
 
+body.dark-mode .news-item .date {
+    color: var(--red-glow);
+}
+
 .news-item h4 {
-    color: #ffffff;
+    color: var(--text-primary);
     margin-top: 0.4rem;
     font-size: 1.08rem;
     line-height: 1.6;
@@ -1015,12 +1085,16 @@ nav .container {
     position: relative;
 }
 
+body.dark-mode .news-item h4 {
+    color: #ffffff;
+}
+
 /* ============================================
    Footer - 页脚
    ============================================ */
 footer {
-    background: var(--bg-deep);
-    color: rgba(255, 255, 255, 0.7);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
     text-align: center;
     padding: 2.5rem 0;
     margin-top: auto;
@@ -1583,9 +1657,9 @@ footer p {
 }
 
 /* ============================================
-   Dark Mode - Qclaw Style (Default)
+   Dark Mode - Qclaw Style
    ============================================ */
-body, body.dark-mode {
+body.dark-mode {
     --text-primary: #F0F0F5;
     --text-secondary: rgba(240,240,245,0.6);
     --text-tertiary: rgba(240,240,245,0.45);
@@ -1598,13 +1672,13 @@ body, body.dark-mode {
     color: var(--text-primary);
 }
 
-body.dark-mode header, header {
+body.dark-mode header {
     background: rgba(10, 10, 15, 0.92);
     border-bottom-color: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(24px);
 }
 
-body.dark-mode.scrolled header, header.scrolled {
+body.dark-mode.scrolled header {
     background: rgba(10, 10, 15, 0.98);
 }
 
@@ -1615,25 +1689,23 @@ body.dark-mode .contact-form,
 body.dark-mode .research-item,
 body.dark-mode .news-item,
 body.dark-mode .about-section,
-body.dark-mode .join-text,
-.feature-card, .team-member, .contact-card, .contact-form, .research-item, .news-item {
+body.dark-mode .join-text {
     background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
     border-color: rgba(255, 255, 255, 0.08);
 }
 
-body.dark-mode .logo, .logo {
+body.dark-mode .logo {
     color: #F0F0F5;
 }
 
-body.dark-mode .nav-links a, .nav-links a {
+body.dark-mode .nav-links a {
     color: rgba(255, 255, 255, 0.85);
 }
 
 body.dark-mode .hero h2,
 body.dark-mode .page-header h2,
 body.dark-mode .features h2,
-body.dark-mode .news h2,
-.hero h2, .page-header h2, .features h2, .news h2 {
+body.dark-mode .news h2 {
     color: #ffffff;
 }
 
@@ -1641,26 +1713,23 @@ body.dark-mode .feature-card h3,
 body.dark-mode .news-item h4,
 body.dark-mode .about-section h3,
 body.dark-mode .research-item h3,
-body.dark-mode .team-member h3,
-.feature-card h3, .news-item h4, .about-section h3, .research-item h3, .team-member h3 {
+body.dark-mode .team-member h3 {
     color: #ffffff;
 }
 
-body.dark-mode footer, footer {
+body.dark-mode footer {
     background: var(--bg-deep);
     border-top-color: rgba(255, 255, 255, 0.06);
 }
 
 body.dark-mode .lang-switch,
-body.dark-mode .theme-toggle,
-.lang-switch, .theme-toggle {
+body.dark-mode .theme-toggle {
     border-color: rgba(255, 255, 255, 0.12);
     color: rgba(255, 255, 255, 0.85);
 }
 
 body.dark-mode .lang-switch:hover,
-body.dark-mode .theme-toggle:hover,
-.lang-switch:hover, .theme-toggle:hover {
+body.dark-mode .theme-toggle:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.25);
     color: #ffffff;

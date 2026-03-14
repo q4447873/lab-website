@@ -548,8 +548,8 @@ function updatePageTitle(page) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
-    // Load saved preferences - default to dark mode (Qclaw style)
-    if (localStorage.getItem('darkMode') !== 'false') {
+    // Load saved preferences - default to light mode
+    if (localStorage.getItem('darkMode') === 'true') {
         document.body.classList.add('dark-mode');
     }
 
