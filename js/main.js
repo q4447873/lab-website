@@ -548,8 +548,8 @@ function updatePageTitle(page) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
-    // Load saved preferences
-    if (localStorage.getItem('darkMode') === 'true') {
+    // Load saved preferences - default to dark mode (Qclaw style)
+    if (localStorage.getItem('darkMode') !== 'false') {
         document.body.classList.add('dark-mode');
     }
 
@@ -563,7 +563,64 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Apply initial language
     updateLanguage();
+
+    // Initialize Custom Cursor (Qclaw Style)
+    initCustomCursor();
 });
+
+// Custom Cursor System (Qclaw Style)
+function initCustomCursor() {
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    const glow = document.getElementById('cursorGlow');
+
+    if (!dot || !ring || !glow) return;
+
+    // Disable on touch devices
+    if (window.matchMedia('(pointer: coarse)').matches) {
+        dot.style.display = 'none';
+        ring.style.display = 'none';
+        glow.style.display = 'none';
+        return;
+    }
+
+    let mouseX = -100, mouseY = -100;
+    let ringX = -100, ringY = -100;
+
+    document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = (mouseX - 4) + 'px';
+        dot.style.top = (mouseY - 4) + 'px';
+        glow.style.left = mouseX + 'px';
+        glow.style.top = mouseY + 'px';
+    });
+
+    // Add hover effect to interactive elements
+    const interactiveElements = document.querySelectorAll(
+        'a, button, .nav-links a, .btn, .feature-card, .news-item, .lang-switch, .theme-toggle'
+    );
+
+    interactiveElements.forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+            ring.classList.add('hovering');
+        });
+        el.addEventListener('mouseleave', function() {
+            ring.classList.remove('hovering');
+        });
+    });
+
+    // Animate cursor ring with delay (Qclaw style)
+    function animateCursor() {
+        ringX += (mouseX - ringX) * 0.12;
+        ringY += (mouseY - ringY) * 0.12;
+        const ringSize = ring.classList.contains('hovering') ? 52 : 36;
+        ring.style.left = (ringX - ringSize / 2) + 'px';
+        ring.style.top = (ringY - ringSize / 2) + 'px';
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+}
 
 // Export functions to global scope
 window.toggleTheme = toggleTheme;

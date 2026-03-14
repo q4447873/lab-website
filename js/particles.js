@@ -10,9 +10,10 @@ class ParticleSystem {
         this.particles = [];
         this.mouseX = 0;
         this.mouseY = 0;
-        this.particleCount = 80;
-        this.connectionDistance = 150;
-        this.mouseInfluenceRadius = 200;
+        // Qclaw style settings
+        this.particleCount = 100;  // 100 particles like Qclaw
+        this.connectionDistance = 140;  // 140px connection distance
+        this.mouseInfluenceRadius = 180;  // 180px mouse influence
         this.animationId = null;
         this.scrollY = 0;
         this.parallaxFactor = 0.3;
@@ -66,18 +67,22 @@ class ParticleSystem {
 
     createParticles() {
         this.particles = [];
-        const isDarkMode = document.body.classList.contains('dark-mode');
 
         for (let i = 0; i < this.particleCount; i++) {
+            // Qclaw style: 60% red particles, 40% purple particles
+            const isRed = Math.random() > 0.4;
             this.particles.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 1.5,
-                vy: (Math.random() - 0.5) * 1.5,
-                size: Math.random() * 3 + 1,
-                color: this.getRandomColor(),
-                alpha: Math.random() * 0.25 + 0.25, // 透明度0.25-0.5
-                z: Math.random() * 2 - 1, // 3D depth
+                vx: (Math.random() - 0.5) * 0.4,  // Qclaw speed: 0.4
+                vy: (Math.random() - 0.5) * 0.4,
+                r: Math.random() * 1.8 + 0.5,  // Qclaw size: 0.5-2.3px
+                alpha: Math.random() * 0.4 + 0.15,  // Qclaw alpha: 0.15-0.55
+                hue: isRed ? 0 : 280,  // Red (0) or Purple (280)
+                color: isRed ?
+                    { r: 255, g: 59, b: 48 } :  // Red #FF3B30
+                    { r: 180, g: 60, b: 200 },  // Purple
+                z: Math.random() * 2 - 1,
                 angle: Math.random() * Math.PI * 2,
                 angularSpeed: (Math.random() - 0.5) * 0.02,
                 pulsePhase: Math.random() * Math.PI * 2,
@@ -86,24 +91,11 @@ class ParticleSystem {
         }
     }
 
-    getRandomColor() {
-        const colors = [
-            { r: 74, g: 144, b: 217 },   // Blue
-            { r: 44, g: 90, b: 160 },    // Dark Blue
-            { r: 155, g: 89, b: 182 },   // Purple
-            { r: 231, g: 76, b: 60 },    // Red
-            { r: 46, g: 204, b: 113 },   // Green
-            { r: 241, g: 196, b: 15 }    // Yellow
-        ];
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
-
     updateParticles() {
         this.particles.forEach(p => {
-            // Base movement
+            // Qclaw style movement - gentle floating
             p.x += p.vx;
-            // Particles float upward slowly
-            p.y += p.vy - 0.3;
+            p.y += p.vy;
 
             // Rotation
             p.angle += p.angularSpeed;
@@ -111,78 +103,47 @@ class ParticleSystem {
             // Pulse effect
             p.pulsePhase += p.pulseSpeed;
 
-            // Mouse interaction
+            // Mouse interaction - Qclaw style (gentle repulsion)
             const dx = this.mouseX - p.x;
             const dy = this.mouseY - p.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance < this.mouseInfluenceRadius) {
-                const force = (this.mouseInfluenceRadius - distance) / this.mouseInfluenceRadius;
+            if (distance < 180) {  // Qclaw mouse influence
+                const force = (180 - distance) / 180;
                 const angle = Math.atan2(dy, dx);
-                p.vx -= Math.cos(angle) * force * 0.5;
-                p.vy -= Math.sin(angle) * force * 0.5;
+                p.vx += Math.cos(angle) * force * 0.015;
+                p.vy += Math.sin(angle) * force * 0.015;
             }
 
-            // Boundary wrap
-            if (p.x < 0) p.x = this.canvas.width;
-            if (p.x > this.canvas.width) p.x = 0;
-            if (p.y < -200) p.y = this.canvas.height + 200;
-            if (p.y > this.canvas.height + 200) p.y = -200;
+            // Bounce off boundaries
+            if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
 
-            // Damping
-            p.vx *= 0.99;
-            p.vy *= 0.99;
-
-            // Keep minimum velocity
-            const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-            if (speed < 0.3) {
-                p.vx += (Math.random() - 0.5) * 0.2;
-                p.vy += (Math.random() - 0.5) * 0.2;
-            }
+            // Very light damping (Qclaw style)
+            p.vx *= 0.999;
+            p.vy *= 0.999;
         });
     }
 
     drawParticles() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Calculate parallax offset
-        const parallaxOffset = this.scrollY * this.parallaxFactor;
+        // Draw connections first (Qclaw style)
+        this.drawConnections();
 
-        // Draw connections first
-        this.drawConnections(parallaxOffset);
-
-        // Draw particles
+        // Draw particles (Qclaw style - simple dots)
         this.particles.forEach(p => {
-            // Apply parallax to y position
-            const parallaxY = p.y + parallaxOffset;
-
-            const pulse = Math.sin(p.pulsePhase) * 0.3 + 1;
-            const size = p.size * pulse * (p.z + 1.5);
-            const alpha = p.alpha * (p.z + 1.5) / 2;
-
             this.ctx.beginPath();
-            this.ctx.arc(p.x, parallaxY, size, 0, Math.PI * 2);
-
-            // Create gradient for each particle
-            const gradient = this.ctx.createRadialGradient(
-                p.x, parallaxY, 0,
-                p.x, parallaxY, size * 2
-            );
-            gradient.addColorStop(0, `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${alpha})`);
-            gradient.addColorStop(1, `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, 0)`);
-
-            this.ctx.fillStyle = gradient;
-            this.ctx.fill();
-
-            // Draw glow
-            this.ctx.beginPath();
-            this.ctx.arc(p.x, parallaxY, size * 3, 0, Math.PI * 2);
-            this.ctx.fillStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${alpha * 0.2})`;
+            this.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            // Qclaw style: red or purple with alpha
+            this.ctx.fillStyle = p.hue === 0
+                ? `rgba(255, 59, 48, ${p.alpha})`  // Red
+                : `rgba(180, 60, 200, ${p.alpha * 0.6})`;  // Purple (dimmed)
             this.ctx.fill();
         });
     }
 
-    drawConnections(parallaxOffset = 0) {
+    drawConnections() {
         for (let i = 0; i < this.particles.length; i++) {
             for (let j = i + 1; j < this.particles.length; j++) {
                 const p1 = this.particles[i];
@@ -193,18 +154,13 @@ class ParticleSystem {
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < this.connectionDistance) {
-                    const alpha = (1 - distance / this.connectionDistance) * 0.3;
-                    const avgColor = {
-                        r: (p1.color.r + p2.color.r) / 2,
-                        g: (p1.color.g + p2.color.g) / 2,
-                        b: (p1.color.b + p2.color.b) / 2
-                    };
-
+                    // Qclaw style: alpha 0.1, thin lines
+                    const alpha = (1 - distance / this.connectionDistance) * 0.1;
                     this.ctx.beginPath();
-                    this.ctx.moveTo(p1.x, p1.y + parallaxOffset);
-                    this.ctx.lineTo(p2.x, p2.y + parallaxOffset);
-                    this.ctx.strokeStyle = `rgba(${avgColor.r}, ${avgColor.g}, ${avgColor.b}, ${alpha})`;
-                    this.ctx.lineWidth = 1;
+                    this.ctx.moveTo(p1.x, p1.y);
+                    this.ctx.lineTo(p2.x, p2.y);
+                    this.ctx.strokeStyle = `rgba(255, 107, 94, ${alpha})`;
+                    this.ctx.lineWidth = 0.5;
                     this.ctx.stroke();
                 }
             }
