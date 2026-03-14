@@ -204,14 +204,14 @@ a, button, span, div, img, input, textarea, select, label {
     width: 100%;
     height: 100vh;
     z-index: 9999;
-    background: linear-gradient(135deg, #0a1628 0%, #0f2942 30%, #1a3d5c 60%, #0d2236 100%);
+    background: var(--bg-primary);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
-/* 多层渐变背景 + 动画 */
+/* 多层渐变背景 + 动画 - Light mode: subtle gray, Dark mode: Qclaw style */
 .landing-bg {
     position: absolute;
     top: 0;
@@ -219,11 +219,23 @@ a, button, span, div, img, input, textarea, select, label {
     width: 100%;
     height: 100%;
     background:
-        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(74, 144, 217, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse 60% 50% at 80% 30%, rgba(142, 68, 173, 0.12) 0%, transparent 45%),
-        radial-gradient(ellipse 70% 60% at 50% 80%, rgba(39, 174, 96, 0.08) 0%, transparent 40%),
-        linear-gradient(180deg, #0a1628 0%, #0f2942 50%, #1a3d5c 100%);
+        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(0, 0, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 50% at 80% 30%, rgba(0, 0, 0, 0.04) 0%, transparent 45%),
+        radial-gradient(ellipse 70% 60% at 50% 80%, rgba(0, 0, 0, 0.03) 0%, transparent 40%),
+        linear-gradient(180deg, #f8f9fb 0%, #f0f2f5 50%, #e8eaed 100%);
     animation: gradientShift 15s ease-in-out infinite;
+}
+
+body.dark-mode .landing-page {
+    background: #0A0A0F;
+}
+
+body.dark-mode .landing-bg {
+    background:
+        radial-gradient(ellipse 80% 60% at 20% 20%, rgba(255, 59, 48, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 50% at 80% 30%, rgba(180, 60, 200, 0.06) 0%, transparent 45%),
+        radial-gradient(ellipse 70% 60% at 50% 80%, rgba(255, 100, 50, 0.05) 0%, transparent 40%),
+        linear-gradient(180deg, #0A0A0F 0%, #0d0d14 50%, #141420 100%);
 }
 
 @keyframes gradientShift {
@@ -231,7 +243,7 @@ a, button, span, div, img, input, textarea, select, label {
     50% { opacity: 0.9; transform: scale(1.02); }
 }
 
-/* 神经网络动画效果 */
+/* 神经网络动画效果 - Light: gray, Dark: Qclaw red */
 .landing-bg::before {
     content: '';
     position: absolute;
@@ -240,13 +252,22 @@ a, button, span, div, img, input, textarea, select, label {
     width: 100%;
     height: 100%;
     background-image:
-        radial-gradient(circle at 15% 25%, rgba(74, 144, 217, 0.25) 0%, transparent 10%),
-        radial-gradient(circle at 85% 35%, rgba(155, 89, 182, 0.2) 0%, transparent 8%),
-        radial-gradient(circle at 45% 75%, rgba(231, 76, 60, 0.15) 0%, transparent 7%),
-        radial-gradient(circle at 75% 85%, rgba(74, 144, 217, 0.18) 0%, transparent 6%),
-        radial-gradient(circle at 25% 65%, rgba(46, 204, 113, 0.12) 0%, transparent 6%);
+        radial-gradient(circle at 15% 25%, rgba(0, 0, 0, 0.08) 0%, transparent 10%),
+        radial-gradient(circle at 85% 35%, rgba(0, 0, 0, 0.06) 0%, transparent 8%),
+        radial-gradient(circle at 45% 75%, rgba(0, 0, 0, 0.05) 0%, transparent 7%),
+        radial-gradient(circle at 75% 85%, rgba(0, 0, 0, 0.07) 0%, transparent 6%),
+        radial-gradient(circle at 25% 65%, rgba(0, 0, 0, 0.04) 0%, transparent 6%);
     background-size: 100% 100%;
     animation: neuronPulse 8s ease-in-out infinite;
+}
+
+body.dark-mode .landing-bg::before {
+    background-image:
+        radial-gradient(circle at 15% 25%, rgba(255, 59, 48, 0.15) 0%, transparent 10%),
+        radial-gradient(circle at 85% 35%, rgba(180, 60, 200, 0.12) 0%, transparent 8%),
+        radial-gradient(circle at 45% 75%, rgba(255, 100, 50, 0.1) 0%, transparent 7%),
+        radial-gradient(circle at 75% 85%, rgba(255, 59, 48, 0.12) 0%, transparent 6%),
+        radial-gradient(circle at 25% 65%, rgba(180, 60, 200, 0.08) 0%, transparent 6%);
 }
 
 @keyframes neuronPulse {
@@ -287,13 +308,17 @@ a, button, span, div, img, input, textarea, select, label {
     margin-top: -5%;
 }
 
-/* Logo 动画 */
+/* Logo 动画 - Light: black glow, Dark: Qclaw red glow */
 .lab-logo-img {
     width: 150px;
     height: 150px;
     margin-bottom: 2.5rem;
-    filter: drop-shadow(0 0 40px rgba(74, 144, 217, 0.4));
+    filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.15));
     animation: logoFloat 4s ease-in-out infinite, logoGlow 3s ease-in-out infinite alternate;
+}
+
+body.dark-mode .lab-logo-img {
+    filter: drop-shadow(0 0 40px rgba(255, 59, 48, 0.3));
 }
 
 @keyframes logoFloat {
@@ -302,7 +327,14 @@ a, button, span, div, img, input, textarea, select, label {
 }
 
 @keyframes logoGlow {
-    0% { filter: drop-shadow(0 0 30px rgba(74, 144, 217, 0.3)); }
+    0% { filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.1)); }
+    100% { filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.2)); }
+}
+
+body.dark-mode @keyframes logoGlow {
+    0% { filter: drop-shadow(0 0 30px rgba(255, 59, 48, 0.2)); }
+    100% { filter: drop-shadow(0 0 50px rgba(255, 59, 48, 0.4)); }
+}
     100% { filter: drop-shadow(0 0 50px rgba(74, 144, 217, 0.5)); }
 }
 
@@ -593,10 +625,8 @@ body.dark-mode .nav-links a.active {
    Hero Section - 主视觉区域
    ============================================ */
 .hero {
-    background:
-        linear-gradient(135deg, rgba(15, 45, 74, 0.85) 0%, rgba(26, 74, 122, 0.85) 50%, rgba(44, 93, 140, 0.85) 100%),
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    color: var(--white);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
     padding: 90px 0 100px;
     text-align: center;
     position: relative;
@@ -609,6 +639,11 @@ body.dark-mode .nav-links a.active {
     z-index: 2;
 }
 
+body.dark-mode .hero {
+    background: var(--bg-dark);
+    color: var(--white);
+}
+
 .hero::before {
     content: '';
     position: absolute;
@@ -617,9 +652,15 @@ body.dark-mode .nav-links a.active {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(ellipse 60% 40% at 10% 10%, rgba(74, 144, 217, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse 50% 40% at 90% 90%, rgba(142, 68, 173, 0.1) 0%, transparent 50%);
+        radial-gradient(ellipse 60% 40% at 10% 10%, rgba(0, 0, 0, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 90% 90%, rgba(0, 0, 0, 0.04) 0%, transparent 50%);
     pointer-events: none;
+}
+
+body.dark-mode .hero::before {
+    background:
+        radial-gradient(ellipse 60% 40% at 10% 10%, rgba(255, 59, 48, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 90% 90%, rgba(180, 60, 200, 0.08) 0%, transparent 50%);
 }
 
 .hero .container {
@@ -632,38 +673,69 @@ body.dark-mode .nav-links a.active {
     align-items: center;
 }
 
-/* 装饰圆形 */
+/* 装饰圆形 - Qclaw Style Float Orbs */
 .decoration-circle {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
-    animation: floatCircle 20s ease-in-out infinite;
+    filter: blur(80px);
+    z-index: 0;
 }
 
 .circle-1 {
-    width: 280px;
-    height: 280px;
-    top: 5%;
-    right: -80px;
-    background: radial-gradient(circle, rgba(74, 144, 217, 0.12) 0%, transparent 70%);
+    width: 400px;
+    height: 400px;
+    top: 10%;
+    right: -100px;
+    background: rgba(0, 0, 0, 0.08);
+    animation: orbFloat1 20s ease-in-out infinite;
+}
+
+body.dark-mode .circle-1 {
+    background: rgba(255, 59, 48, 0.06);
 }
 
 .circle-2 {
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
     bottom: 10%;
-    left: -60px;
-    background: radial-gradient(circle, rgba(142, 68, 173, 0.08) 0%, transparent 70%);
-    animation-delay: -5s;
+    left: -80px;
+    background: rgba(0, 0, 0, 0.06);
+    animation: orbFloat2 25s ease-in-out infinite;
+}
+
+body.dark-mode .circle-2 {
+    background: rgba(180, 60, 200, 0.04);
 }
 
 .circle-3 {
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: 300px;
     top: 40%;
-    left: 10%;
-    background: radial-gradient(circle, rgba(46, 204, 113, 0.06) 0%, transparent 70%);
-    animation-delay: -10s;
+    left: 20%;
+    background: rgba(0, 0, 0, 0.05);
+    animation: orbFloat3 18s ease-in-out infinite;
+}
+
+body.dark-mode .circle-3 {
+    background: rgba(255, 100, 50, 0.05);
+}
+
+@keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(60px, -40px); }
+    66% { transform: translate(-30px, 50px); }
+}
+
+@keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-50px, 30px); }
+    66% { transform: translate(40px, -60px); }
+}
+
+@keyframes orbFloat3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(70px, -30px); }
 }
 
 @keyframes floatCircle {
@@ -677,14 +749,18 @@ body.dark-mode .nav-links a.active {
 .hero h2 {
     font-size: clamp(2rem, 5vw, 3.2rem);
     margin-bottom: 1.4rem;
-    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     animation: fadeInUp 0.8s ease forwards;
     line-height: 1.4;
     max-width: 900px;
     font-weight: 700;
     font-family: var(--font-display);
     letter-spacing: 2px;
+    color: var(--text-primary);
+}
+
+body.dark-mode .hero h2 {
     color: #ffffff;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .hero p {
@@ -697,7 +773,11 @@ body.dark-mode .nav-links a.active {
     animation-delay: 0.15s;
     opacity: 0;
     line-height: 1.8;
-    color: var(--white);
+    color: var(--text-secondary);
+}
+
+body.dark-mode .hero p {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .hero .btn {
@@ -776,6 +856,10 @@ body.dark-mode .nav-links a.active {
     transform: translateY(-50%);
     width: 1px;
     height: 40px;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+}
+
+body.dark-mode .stat-item::after {
     background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2), transparent);
 }
 
@@ -786,19 +870,27 @@ body.dark-mode .nav-links a.active {
 .stat-number {
     font-size: 2.6rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-primary);
     display: block;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
     font-family: var(--font-display);
     letter-spacing: 1px;
 }
 
+body.dark-mode .stat-number {
+    color: #ffffff;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.25);
+}
+
 .stat-label {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--text-secondary);
     margin-top: 0.4rem;
     font-weight: 500;
     letter-spacing: 0.5px;
+}
+
+body.dark-mode .stat-label {
+    color: rgba(255, 255, 255, 0.75);
 }
 
 /* ============================================
@@ -806,7 +898,12 @@ body.dark-mode .nav-links a.active {
    ============================================ */
 .section-divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(74, 144, 217, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+}
+
+body.dark-mode .section-divider {
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 94, 0.3), transparent);
+}
     margin: 0 auto;
     max-width: 600px;
     position: relative;
@@ -1120,16 +1217,19 @@ footer p {
    Page Header - 页面头部
    ============================================ */
 .page-header {
-    background:
-        linear-gradient(135deg, rgba(15, 45, 74, 0.85) 0%, rgba(26, 74, 122, 0.85) 50%, rgba(44, 93, 140, 0.85) 100%),
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    color: var(--white);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
     padding: 80px 0 70px;
     text-align: center;
     position: relative;
     overflow: hidden;
     margin-top: 70px;
     z-index: 2;
+}
+
+body.dark-mode .page-header {
+    background: var(--bg-dark);
+    color: var(--white);
 }
 
 .page-header::before {
@@ -1140,9 +1240,15 @@ footer p {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(ellipse 50% 40% at 20% 20%, rgba(74, 144, 217, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(142, 68, 173, 0.1) 0%, transparent 50%);
+        radial-gradient(ellipse 50% 40% at 20% 20%, rgba(0, 0, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(0, 0, 0, 0.06) 0%, transparent 50%);
     pointer-events: none;
+}
+
+body.dark-mode .page-header::before {
+    background:
+        radial-gradient(ellipse 50% 40% at 20% 20%, rgba(255, 59, 48, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(180, 60, 200, 0.08) 0%, transparent 50%);
 }
 
 .page-header h2 {
@@ -1152,6 +1258,10 @@ footer p {
     font-weight: 700;
     font-family: var(--font-display);
     letter-spacing: 3px;
+    color: var(--text-primary);
+}
+
+body.dark-mode .page-header h2 {
     color: #ffffff;
 }
 
@@ -1159,7 +1269,11 @@ footer p {
     font-size: 1.15rem;
     opacity: 0.9;
     position: relative;
-    color: #ffffff;
+    color: var(--text-secondary);
+}
+
+body.dark-mode .page-header p {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* ============================================
